@@ -1,5 +1,5 @@
+// Band color
 let ringButton = document.querySelectorAll(".ring-button");
-
 for (let i of ringButton) {
   i.addEventListener("click", function (event) {
     // Remove purple color
@@ -16,5 +16,18 @@ for (let i of ringButton) {
     let imageBase = document.getElementById("product-image");
     imageBase.src = `../images/${color}.png`;
     console.log(imageBase.src);
+  });
+}
+
+// Wrist size
+let sizeBtn = document.querySelectorAll(".size-btn");
+for (let i of sizeBtn) {
+  i.addEventListener("click", function (event) {
+    // Remove color
+    for (let j of sizeBtn) {
+      j.classList.remove("border-purple-600");
+    }
+    // Add color
+    event.target.classList.add("border-purple-600");
   });
 }
