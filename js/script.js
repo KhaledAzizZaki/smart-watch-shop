@@ -34,7 +34,6 @@ for (let i of sizeBtn) {
     event.target.classList.add("border-purple-600");
     price = parseInt(event.target.innerText.split("$")[1]);
     size = event.target.innerText.split("$")[0].trim();
-    console.log(size);
   });
 }
 
@@ -72,6 +71,48 @@ document.getElementById("add-to-cart").addEventListener("click", function () {
     color: color,
     size: size,
     quantity: sum,
-    price: price,
+    price: price * sum,
   });
 });
+
+// Modal
+
+document.getElementById("checkout-btn").addEventListener("click", function () {
+  document.getElementById("cart-modal").classList.remove("hidden");
+  let cartContainer = document.getElementById("cart-items");
+  cartContainer.innerHTML = "";
+  let totalContainer = document.getElementById("total-price");
+  totalContainer.innerHTML = "";
+  let totalPrice = 0;
+  for (let i of cartItems) {
+    let row = document.createElement("tr");
+    row.classList.add("border-b");
+    row.innerHTML = `
+    <td class="py-2 px-4">
+      <div class="flex items-center space-x-2">
+        <img class="h-12 w-12 object-cover rounded-md" src="${i.image}" alt="">
+        <span class="font-semibold">${i.title}</span>
+      </div>
+    </td>
+    <td class="py-2 px-4">${i.color}</td>
+    <td class="py-2 px-4">${i.size}</td>
+    <td class="py-2 px-4">${i.quantity}</td>
+    <td class="py-2 px-4">$${i.price}</td>
+    `;
+    cartContainer.appendChild(row);
+    totalPrice = totalPrice + i.price;
+  }
+  let rowLast = document.createElement("tr");
+  rowLast.innerHTML = `
+  <th>Total</th>
+  <td>${totalPrice}</td>
+`;
+  totalContainer.appendChild(rowLast);
+});
+
+// Continue Shopping
+document
+  .getElementById("continue-shopping")
+  .addEventListener("click", function () {
+    document.getElementById("cart-modal").classList.add("hidden");
+  });
