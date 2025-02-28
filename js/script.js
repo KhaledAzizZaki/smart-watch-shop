@@ -1,4 +1,5 @@
 // Band color
+let color = "purple";
 let ringButton = document.querySelectorAll(".ring-button");
 for (let i of ringButton) {
   i.addEventListener("click", function (event) {
@@ -11,7 +12,7 @@ for (let i of ringButton) {
     event.target.classList.add("border-purple-600");
     event.target.classList.remove("border-gray-300");
     // Select color for image
-    let color = event.target.id.replace("-color", "");
+    color = event.target.id.replace("-color", "");
     // Select image
     let imageBase = document.getElementById("product-image");
     imageBase.src = `../images/${color}.png`;
@@ -20,6 +21,8 @@ for (let i of ringButton) {
 }
 
 // Wrist size
+let size = "";
+let price = "";
 let sizeBtn = document.querySelectorAll(".size-btn");
 for (let i of sizeBtn) {
   i.addEventListener("click", function (event) {
@@ -29,6 +32,9 @@ for (let i of sizeBtn) {
     }
     // Add color
     event.target.classList.add("border-purple-600");
+    price = parseInt(event.target.innerText.split("$")[1]);
+    size = event.target.innerText.split("$")[0].trim();
+    console.log(size);
   });
 }
 
@@ -46,3 +52,26 @@ for (let i of quantityButton) {
     }
   });
 }
+
+// Add to cart
+let cartCount = 0;
+let cartItems = [];
+document.getElementById("add-to-cart").addEventListener("click", function () {
+  cartCount = cartCount + sum;
+
+  if (sum > 0 && size) {
+    document.querySelector("#checkout-container").classList.remove("hidden");
+    document.querySelector("#cart-count").innerText = cartCount;
+  } else {
+    alert("Add Quantity and Size");
+  }
+
+  cartItems.push({
+    image: `../images/${color}.png`,
+    title: " Classy Modern Smart Watch",
+    color: color,
+    size: size,
+    quantity: sum,
+    price: price,
+  });
+});
